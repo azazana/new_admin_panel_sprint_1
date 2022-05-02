@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Genre, GenreFilmwork, Filmwork, Person, PersonFilmwork
+
+from .models import Filmwork, Genre, GenreFilmwork, Person, PersonFilmwork
 
 
 @admin.register(Genre)
@@ -18,6 +19,7 @@ class PersonFilmworkInline(admin.TabularInline):
     extra = 3
     max_num = 3
 
+
 @admin.register(Filmwork)
 class FilmworkAdmin(admin.ModelAdmin):
     inlines = (PersonFilmworkInline,)
@@ -26,7 +28,7 @@ class FilmworkAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description', 'id')
     #model = Filmwork.questions.through
 
+
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     search_fields = ('full_name', )
-

@@ -12,10 +12,9 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunSQL(
             sql="""
-                ALTER TABLE "content"."genre_film_work" 
-                ADD CONSTRAINT "genre_film_work_film_work_id_genre_id_uniq" 
+                ALTER TABLE "content"."genre_film_work"
+                ADD CONSTRAINT "genre_film_work_film_work_id_genre_id_uniq"
                 UNIQUE ("film_work_id", "genre_id");
             """,
             reverse_sql='ALTER TABLE "content"."genre_film_work" DROP CONSTRAINT genre_film_work_film_work_id_genre_id_uniq',
-        )
-    ]
+        )]

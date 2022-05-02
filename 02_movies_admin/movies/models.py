@@ -1,6 +1,7 @@
 import uuid
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
 
 
@@ -9,7 +10,8 @@ class TimeStampedMixin(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
-        # Этот параметр указывает Django, что этот класс не является представлением таблицы
+        # Этот параметр указывает Django, что этот класс не является
+        # представлением таблицы
         abstract = True
 
 
@@ -30,7 +32,8 @@ class Genre(UUIDMixin, TimeStampedMixin):
     description = models.TextField(_('description'), blank=True)
 
     class Meta:
-        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в классе модели
+        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в
+        # классе модели
         db_table = "content\".\"genre"
         # Следующие два поля отвечают за название модели в интерфейсе
         verbose_name = 'Жанр'
@@ -44,7 +47,8 @@ class Person(UUIDMixin, TimeStampedMixin):
     full_name = models.CharField(_('full_name'), max_length=255)
 
     class Meta:
-        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в классе модели
+        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в
+        # классе модели
         db_table = "content\".\"person"
         # Следующие два поля отвечают за название модели в интерфейсе
         verbose_name = 'Актер'
@@ -56,8 +60,10 @@ class PersonFilmwork(UUIDMixin):
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
     role = models.TextField(_('role'), null=True)
     created = models.DateTimeField(auto_now_add=True)
+
     class Meta:
-        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в классе модели
+        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в
+        # классе модели
         db_table = "content\".\"person_film_work"
 
 
@@ -74,17 +80,28 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     # Первым аргументом обычно идёт человекочитаемое название поля
     description = models.CharField(_('description'), max_length=255)
     creation_date = models.DateTimeField(_('creation_date'))
-    rating = models.FloatField(_('rating'), blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    rating = models.FloatField(
+        _('rating'),
+        blank=True,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(100)])
     type = models.CharField(_('type'), max_length=2, choices=TypeFilms.choices)
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
     person = models.ManyToManyField(Person, through='PersonFilmwork')
-    certificate = models.CharField(_('certificate'), max_length=512, blank=True)
+    certificate = models.CharField(
+        _('certificate'), max_length=512, blank=True)
     # Параметр upload_to указывает, в какой подпапке будут храниться загружемые файлы.
     # Базовая папка указана в файле настроек как MEDIA_ROOT
-    file_path = models.FileField(_('file'), blank=True, null=True, upload_to='movies/')
+    file_path = models.FileField(
+        _('file'),
+        blank=True,
+        null=True,
+        upload_to='movies/')
 
     class Meta:
-        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в классе модели
+        # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в
+        # классе модели
         db_table = "content\".\"film_work"
         # Следующие два поля отвечают за название модели в интерфейсе
         verbose_name = 'Кинопроизведение'
