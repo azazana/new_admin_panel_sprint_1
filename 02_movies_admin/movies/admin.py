@@ -26,9 +26,9 @@ class FilmworkAdmin(admin.ModelAdmin):
     list_display = ('title', 'type', 'creation_date', 'rating',)
     list_filter = ('type',)
     search_fields = ('title', 'description', 'id')
-    #model = Filmwork.questions.through
+    # model = Filmwork.questions.through
 
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    search_fields = ('full_name', )
+    search_fields = ('full_name',)

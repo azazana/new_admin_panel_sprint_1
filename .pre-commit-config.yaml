@@ -1,10 +1,28 @@
 repos:
 -   repo: local
     hooks:
+    -   id: autopep8
+        name: autopep8
+        entry: autopep8
+        language: python
+        'types': [ python ]
+        args: [ "-i" ]
+        require_serial: false
+        additional_dependencies: [ ]
+        minimum_pre_commit_version: '0'
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
     -   id: flake8
         name: flake8
         description: wemake-python-styleguide enforcement
         entry: flake8
-        args: ["--config=setup.cfg"]
+        args: [--config, setup.cfg]
         language: python
         types: [python]
+        verbose: True
+-   repo: https://github.com/pre-commit/mirrors-isort
+    rev: 'v5.9.1'
+    hooks:
+    -   id: isort
+
