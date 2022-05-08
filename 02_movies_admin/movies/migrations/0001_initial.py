@@ -41,14 +41,21 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4,
                                         editable=False, primary_key=True, serialize=False
                                         )),
-                ('title', models.TextField(blank=True, verbose_name='description'
-                                           )),
                 ('description', models.CharField(
                     max_length=255, verbose_name='description',
                 )),
-                ('creation_date', models.DateTimeField(
-                    verbose_name='creation_date',
-                )),
+                ('title', models.TextField(blank=True, verbose_name='title'
+                                           )),
+                ('file_path', models.TextField(blank=True,
+                                               null=True,
+                                               # upload_to='movies/',
+                                               verbose_name='file'
+                                               )),
+                ('creation_date', models.DateTimeField(null=True)),
+                ('certificate', models.TextField(blank=True, max_length=512,
+                                                 verbose_name='certificate',
+                                                 null=True,
+                                                 )),
                 ('rating', models.FloatField(blank=True,
                                              validators=[django.core.validators.MinValueValidator(0),
                                                          django.core.validators.MaxValueValidator(
@@ -79,7 +86,7 @@ class Migration(migrations.Migration):
                 ('full_name', models.CharField(
                     max_length=255, verbose_name='full_name',
                 ),
-                ),
+                 ),
             ],
             options={
                 'verbose_name': 'Актер',
@@ -101,12 +108,12 @@ class Migration(migrations.Migration):
                     on_delete=django.db.models.deletion.CASCADE,
                     to='movies.filmwork',
                 ),
-                ),
+                 ),
                 ('person', models.ForeignKey(
                     on_delete=django.db.models.deletion.CASCADE,
                     to='movies.person',
                 )
-                ),
+                 ),
             ],
             options={
                 'db_table': 'content"."person_film_work',
@@ -126,7 +133,7 @@ class Migration(migrations.Migration):
                     on_delete=django.db.models.deletion.CASCADE,
                     to='movies.filmwork',
                 ),
-                ),
+                 ),
                 ('genre', models.ForeignKey(
                     on_delete=django.db.models.deletion.CASCADE, to='movies.genre',
                 )),

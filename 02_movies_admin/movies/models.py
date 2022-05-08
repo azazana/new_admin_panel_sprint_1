@@ -6,8 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TimeStampedMixin(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         # Этот параметр указывает Django, что этот класс не является
@@ -59,7 +59,7 @@ class PersonFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
     role = models.TextField(_('role'), null=True)
-    created = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в
@@ -79,7 +79,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     title = models.TextField(_('title'), blank=True)
     # Первым аргументом обычно идёт человекочитаемое название поля
     description = models.CharField(_('description'), max_length=255)
-    creation_date = models.DateTimeField(_('creation_date'))
+    creation_date = models.DateTimeField(_('creation_date'), null=True,)
     rating = models.FloatField(
         _('rating'),
         blank=True,
@@ -90,7 +90,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
     person = models.ManyToManyField(Person, through='PersonFilmwork')
     certificate = models.CharField(
-        _('certificate'), max_length=512, blank=True
+        _('certificate'), max_length=512, blank=True, null=True,
     )
     # Параметр upload_to указывает, в какой
     # подпапке будут храниться загружемые файлы.
@@ -114,7 +114,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
 class GenreFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "content\".\"genre_film_work"
