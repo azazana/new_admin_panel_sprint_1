@@ -15,7 +15,7 @@ class Filmwork:
     type: str = ''
     created_at: datetime = field(default_factory=datetime.datetime.now)
     updated_at: datetime = field(default_factory=datetime.datetime.now)
-    file_path: str = ''
+    file_path: str = None
     # table = "film_work"
 
 

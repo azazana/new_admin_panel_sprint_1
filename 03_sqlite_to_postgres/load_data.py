@@ -10,7 +10,7 @@ from psycopg2.extensions import connection as _connection
 load_dotenv()
 
 # пачка размера 500
-size = 5
+size = 500
 
 
 def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):

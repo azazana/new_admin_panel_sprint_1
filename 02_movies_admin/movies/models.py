@@ -6,8 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TimeStampedMixin(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.CharField(max_length=50)
+    updated_at = models.CharField(max_length=50)
 
     class Meta:
         # Этот параметр указывает Django, что этот класс не является
@@ -59,7 +59,7 @@ class PersonFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
     role = models.TextField(_('role'), null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.CharField(max_length=50)
 
     class Meta:
         # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в
@@ -85,7 +85,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         blank=True,
         validators=[
             MinValueValidator(0),
-            MaxValueValidator(100)])
+            MaxValueValidator(100)], null=True)
     type = models.CharField(_('type'), max_length=2, choices=TypeFilms.choices)
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
     person = models.ManyToManyField(Person, through='PersonFilmwork')
@@ -114,7 +114,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
 class GenreFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.CharField(max_length=50)
 
     class Meta:
         db_table = "content\".\"genre_film_work"

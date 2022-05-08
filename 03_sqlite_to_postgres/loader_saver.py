@@ -1,7 +1,13 @@
+import logging
 import sqlite3
 from dataclasses import asdict, astuple
 
 from data_classes import Filmwork, FilmworkGenre, FilmworkPerson, Genre, Person
+
+logging.basicConfig(filename='logging.log', level=logging.INFO,
+                    format='%(asctime)s  %(message)s')
+
+logger = logging.getLogger(__name__)
 
 
 class SQLiteLoader:
@@ -17,20 +23,20 @@ class SQLiteLoader:
         }
 
     def __generator(self, table: str, cls):
-        curs = self.conn.cursor()
-        query = f'SELECT * FROM {table};'
-        curs.execute(query)
-        # try:
-        while True:
-            data = curs.fetchmany(self.size)
+        try:
+            curs = self.conn.cursor()
+            query = f'SELECT * FROM {table};'
+            curs.execute(query)
+            while True:
+                data = curs.fetchmany(self.size)
 
-            list_data = [cls(*i) for i in data]
-            if not data:
-                break
-            yield list_data
-
-        # except Exception:
-            # logger
+                list_data = [cls(*i) for i in data]
+                if not data:
+                    break
+                yield list_data
+            logger.info('Reading data from table %s is succeed', table)
+        except sqlite3.DatabaseError as err:
+            logger.error('Error of reading sqlite in table %s \n %s', table, err)
             # pass
 
 
@@ -46,27 +52,25 @@ class PostgresSaver:
 
     def save_all_data(self, data_dict: dict):
         for table, data_gen in data_dict.items():
-            # self.truncate(table)
+            self.truncate(table)
+            counter = 0
             for list_data in data_gen:
+
                 dict_cls = asdict(list_data[0])
                 keys_sql = ', '.join(dict_cls.keys())
                 count_s = ('%s, ' * len(dict_cls.keys()))[:-2]
                 query = (f'INSERT INTO {table} ({keys_sql}) VALUES ({count_s}) '
                          f' ON CONFLICT (id) DO NOTHING;')
-                tupple_butch = (astuple(dicts) for dicts in list_data)
-                self.cursor.executemany(query, tupple_butch)
+                tuple_butch = (astuple(dicts) for dicts in list_data)
+                try:
+                    self.cursor.executemany(query, tuple_butch)
+                except(Exception):
+                    logger.error('Error of downloading data in table %s', table)
+                counter += len(dict_cls)
+            logger.info('Data in table %s is downloaded, count of rows %s', table, counter)
 
         self.connect.commit()
         self.cursor.close()
-
-#
-# def from_dict_to_dataclass(cls, data):
-#     return cls(
-#         **{
-#             key: (data[key] if val.default == val.empty else data.get(key, val.default))
-#             for key, val in inspect.signature(Filmwork).parameters.items()
-#         }
-#     )
 
 
 MAP = {
@@ -76,13 +80,3 @@ MAP = {
     'genre_film_work': FilmworkGenre,
     'person_film_work': FilmworkPerson,
 }
-
-#
-# connection = psycopg2.connect(
-#     host=os.environ.get('DB_HOST', '127.0.0.1'),
-#     database=os.environ.get('DB_NAME'),
-#     user=os.environ.get('DB_USER'),
-#     password=os.environ.get('DB_PASSWORD'),
-#     port=os.environ.get('DB_PORT')
-# )
-# connection.autocommit = True
