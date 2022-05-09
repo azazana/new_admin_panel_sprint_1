@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-09 10:02+0000\n"
+"POT-Creation-Date: 2022-05-09 10:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "фильмы"
 #: 02_movies_admin/movies/models.py:9 02_movies_admin/movies/models.py:62
 #: 02_movies_admin/movies/models.py:119
 msgid "created_at"
-msgstr "дата создания"
+msgstr "дата создания записи"
 
 #: 02_movies_admin/movies/models.py:10
 msgid "updated_at"
@@ -55,7 +55,7 @@ msgstr "заголовок"
 
 #: 02_movies_admin/movies/models.py:84
 msgid "creation_date"
-msgstr "дата создания"
+msgstr "дата создания фильма"
 
 #: 02_movies_admin/movies/models.py:86
 msgid "rating"
@@ -72,6 +72,3 @@ msgstr "прокатное удостоверение"
 #: 02_movies_admin/movies/models.py:101
 msgid "file"
 msgstr "путь к файлу"
-
-#~ msgid "PersonFilmwork"
-#~ msgstr "участники фильма+"
