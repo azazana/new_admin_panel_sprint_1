@@ -6,8 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TimeStampedMixin(models.Model):
-    created_at = models.CharField(max_length=50)
-    updated_at = models.CharField(max_length=50)
+    created_at = models.CharField(_('created_at'), max_length=50)
+    updated_at = models.CharField(_('updated_at'), max_length=50)
 
     class Meta:
         # Этот параметр указывает Django, что этот класс не является
@@ -59,11 +59,13 @@ class PersonFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
     role = models.TextField(_('role'), null=True)
-    created_at = models.CharField(max_length=50)
+    created_at = models.CharField(_('created_at'), max_length=50)
 
     class Meta:
         # Ваши таблицы находятся в нестандартной схеме. Это нужно указать в
         # классе модели
+        verbose_name = 'Актер'
+        verbose_name_plural = 'Актеры'
         db_table = "content\".\"person_film_work"
 
 
@@ -114,7 +116,9 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
 class GenreFilmwork(UUIDMixin):
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
-    created_at = models.CharField(max_length=50)
+    created_at = models.CharField(_('created_at'), max_length=50)
 
     class Meta:
         db_table = "content\".\"genre_film_work"
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'

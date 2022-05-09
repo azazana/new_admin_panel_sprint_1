@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-01 12:21+0000\n"
+"POT-Creation-Date: 2022-05-09 10:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,34 +18,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: movies/apps.py:8
+#: 02_movies_admin/movies/apps.py:8
 msgid "movies"
 msgstr "movies"
 
-#: movies/models.py:27
+#: 02_movies_admin/movies/models.py:9 02_movies_admin/movies/models.py:62
+#: 02_movies_admin/movies/models.py:119
+msgid "created_at"
+msgstr ""
+
+#: 02_movies_admin/movies/models.py:10
+msgid "updated_at"
+msgstr ""
+
+#: 02_movies_admin/movies/models.py:30
 msgid "name"
 msgstr "name"
 
-#: movies/models.py:29 movies/models.py:72 movies/models.py:74
+#: 02_movies_admin/movies/models.py:32 02_movies_admin/movies/models.py:83
 msgid "description"
 msgstr "description"
 
-#: movies/models.py:43
+#: 02_movies_admin/movies/models.py:47
 msgid "full_name"
 msgstr "full_name"
 
-#: movies/models.py:56
+#: 02_movies_admin/movies/models.py:61
 msgid "role"
 msgstr "role"
 
-#: movies/models.py:75
+#: 02_movies_admin/movies/models.py:81
+msgid "title"
+msgstr ""
+
+#: 02_movies_admin/movies/models.py:84
 msgid "creation_date"
 msgstr ""
 
-#: movies/models.py:76
+#: 02_movies_admin/movies/models.py:86
 msgid "rating"
 msgstr "rating"
 
-#: movies/models.py:77
+#: 02_movies_admin/movies/models.py:91
 msgid "type"
 msgstr "type"
+
+#: 02_movies_admin/movies/models.py:95
+msgid "certificate"
+msgstr ""
+
+#: 02_movies_admin/movies/models.py:101
+msgid "file"
+msgstr ""

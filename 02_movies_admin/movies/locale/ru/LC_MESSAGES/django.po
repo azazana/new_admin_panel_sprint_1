@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-01 12:21+0000\n"
+"POT-Creation-Date: 2022-05-09 10:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,34 +20,58 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: movies/apps.py:8
+#: 02_movies_admin/movies/apps.py:8
 msgid "movies"
 msgstr "фильмы"
 
-#: movies/models.py:27
+#: 02_movies_admin/movies/models.py:9 02_movies_admin/movies/models.py:62
+#: 02_movies_admin/movies/models.py:119
+msgid "created_at"
+msgstr "дата создания"
+
+#: 02_movies_admin/movies/models.py:10
+msgid "updated_at"
+msgstr "дата изменения"
+
+#: 02_movies_admin/movies/models.py:30
 msgid "name"
 msgstr "имя"
 
-#: movies/models.py:29 movies/models.py:72 movies/models.py:74
+#: 02_movies_admin/movies/models.py:32 02_movies_admin/movies/models.py:83
 msgid "description"
 msgstr "описание"
 
-#: movies/models.py:43
+#: 02_movies_admin/movies/models.py:47
 msgid "full_name"
 msgstr "полное имя"
 
-#: movies/models.py:56
+#: 02_movies_admin/movies/models.py:61
 msgid "role"
 msgstr "роль"
 
-#: movies/models.py:75
+#: 02_movies_admin/movies/models.py:81
+msgid "title"
+msgstr "заголовок"
+
+#: 02_movies_admin/movies/models.py:84
 msgid "creation_date"
 msgstr "дата создания"
 
-#: movies/models.py:76
+#: 02_movies_admin/movies/models.py:86
 msgid "rating"
 msgstr "рейтинг"
 
-#: movies/models.py:77
+#: 02_movies_admin/movies/models.py:91
 msgid "type"
 msgstr "тип"
+
+#: 02_movies_admin/movies/models.py:95
+msgid "certificate"
+msgstr "прокатное удостоверение"
+
+#: 02_movies_admin/movies/models.py:101
+msgid "file"
+msgstr "путь к файлу"
+
+#~ msgid "PersonFilmwork"
+#~ msgstr "участники фильма+"
