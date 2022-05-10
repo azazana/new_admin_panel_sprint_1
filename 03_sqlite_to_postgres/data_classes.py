@@ -16,7 +16,6 @@ class Filmwork:
     created_at: datetime = field(default_factory=datetime.datetime.now)
     updated_at: datetime = field(default_factory=datetime.datetime.now)
     file_path: str = None
-    # table = "film_work"
 
 
 @dataclass(frozen=True)
@@ -26,7 +25,6 @@ class Genre:
     description: str = field(default=None)
     created_at: datetime = field(default_factory=datetime.datetime.now)
     updated_at: datetime = field(default_factory=datetime.datetime.now)
-    # table = 'ganre'
 
 
 @dataclass(frozen=True)
@@ -35,7 +33,6 @@ class Person:
     full_name: str
     created_at: datetime = field(default_factory=datetime.datetime.now)
     updated_at: datetime = field(default_factory=datetime.datetime.now)
-    # table = 'person'
 
 
 @dataclass(frozen=True)

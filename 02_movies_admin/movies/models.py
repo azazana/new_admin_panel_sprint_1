@@ -56,9 +56,15 @@ class Person(UUIDMixin, TimeStampedMixin):
 
 
 class PersonFilmwork(UUIDMixin):
+    class TypeRoles(models.TextChoices):
+        Director = 'Director'
+        Actor = 'Actor'
+        Screenwriter = 'Screenwriter'
+        Make_up_artist = 'Make_up_artist'
+
     film_work = models.ForeignKey('Filmwork', on_delete=models.CASCADE)
     person = models.ForeignKey('Person', on_delete=models.CASCADE)
-    role = models.TextField(_('role'), null=True)
+    role = models.CharField(_('role'), choices=TypeRoles.choices, null=True)
     created_at = models.CharField(_('created_at'), max_length=50)
 
     class Meta:
@@ -67,6 +73,11 @@ class PersonFilmwork(UUIDMixin):
         verbose_name = 'Актер'
         verbose_name_plural = 'Актеры'
         db_table = "content\".\"person_film_work"
+        # Почему лучше использовать constraints а не Index?
+        constraints = [
+            models.UniqueConstraint(
+                fields=['film_work_id', 'person_id', 'role'], name='index_person_film_work')
+        ]
 
 
 class Filmwork(UUIDMixin, TimeStampedMixin):
@@ -87,7 +98,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         blank=True,
         validators=[
             MinValueValidator(0),
-            MaxValueValidator(100)], null=True)
+            MaxValueValidator(10)], null=True)
     type = models.CharField(_('type'), max_length=2, choices=TypeFilms.choices)
     genres = models.ManyToManyField(Genre, through='GenreFilmwork')
     person = models.ManyToManyField(Person, through='PersonFilmwork')
@@ -111,6 +122,9 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         # Следующие два поля отвечают за название модели в интерфейсе
         verbose_name = 'Кинопроизведение'
         verbose_name_plural = 'Кинопроизведения'
+        constraints = [
+            models.UniqueConstraint(fields=['creation_date'], name='film_work_creation_date_idx')
+        ]
 
 
 class GenreFilmwork(UUIDMixin):
@@ -122,3 +136,7 @@ class GenreFilmwork(UUIDMixin):
         db_table = "content\".\"genre_film_work"
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
+        constraints = [
+            models.UniqueConstraint(fields=['film_work_id', 'genre_id'],
+                                    name='index_genre_film_work')
+        ]
